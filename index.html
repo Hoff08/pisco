@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambo Agency - Brand Purple</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* MUDANÇA: Roxo de Marca (Mais forte e saturado) */
+            /* Se tiver o código exato da logo, cole aqui no lugar de #6600ff */
+            --neon: #6600ff; 
+            --neon-gradient: #8f00ff;
+            
+            --dark: #080808;
+            --light: #f8f5ff; /* Fundo branco com leve toque roxo */
+            --gray: #888;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111;
+            font-family: 'Manrope', sans-serif; 
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            aspect-ratio: 4 / 5;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            transition: transform 0.2s;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card:hover {
+            z-index: 10;
+            box-shadow: 0 10px 40px rgba(102, 0, 255, 0.4);
+            transform: scale(1.02);
+        }
+
+        h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700; 
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        small {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .handle {
+            margin-top: auto;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            font-weight: 600;
+        }
+
+        .img-placeholder {
+            background-color: #222;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- POST 1: Roxo Sólido --- */
+        /* Como o roxo é escuro, mudamos o texto para BRANCO */
+        .p1 { background-color: var(--neon); color: white; justify-content: space-between; }
+        .p1-content { margin-top: 40px; }
+        .p1 h2 { font-size: 2.2rem; margin-bottom: 15px; } 
+        .avatar-group { display: flex; gap: -10px; margin-bottom: 10px;}
+        .avatar { width: 35px; height: 35px; background: #fff; border-radius: 50%; border: 2px solid var(--neon); }
+
+        /* --- POST 2: Preto --- */
+        .p2 { background-color: var(--dark); color: white; align-items: center; text-align: center; }
+        .p2-img-box {
+            width: 85%; height: 60%; background: #222; margin-top: 20px;
+            border-radius: 4px; transform: rotate(-3deg); overflow: hidden; border: 1px solid #333;
+        }
+
+        /* --- POST 3: Branco --- */
+        .p3 { background-color: var(--light); color: black; justify-content: center; }
+        .p3-shape {
+            position: absolute; background-color: var(--neon);
+            width: 120%; height: 40%; top: 35%; left: -10%;
+            transform: rotate(-8deg); z-index: 0; border-radius: 4px;
+        }
+        /* Texto branco sobre o shape roxo para contraste */
+        .p3 h2 { position: relative; z-index: 1; font-size: 2.3rem; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        /* Pequeno ajuste para garantir que "Padrões" fique legível se sair do shape */
+        .p3 p { color: black; }
+
+        /* --- POST 4: Preto --- */
+        .p4 { background-color: var(--dark); color: white; }
+        .p4-shape {
+            position: absolute; background: var(--neon); width: 100%; height: 60%;
+            top: 20%; right: -30%; transform: skewX(-20deg); z-index: 0;
+        }
+        .p4-img {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 75%;
+            background: linear-gradient(to top, var(--dark), transparent), #333; 
+            z-index: 1; filter: grayscale(100%) contrast(120%);
+        }
+        .p4 h2 { position: relative; z-index: 2; font-size: 2.4rem; margin-top: auto; text-shadow: 2px 2px 0 #000; }
+
+        /* --- POST 5: Branco --- */
+        .p5 { background-color: var(--light); color: black; }
+        .p5 h2 { font-size: 2.2rem; margin-bottom: 30px; }
+        .list-item { display: flex; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;}
+        .list-num { 
+            background: black; color: white; 
+            border-radius: 2px; width: 25px; height: 25px; 
+            display: flex; justify-content: center; align-items: center; 
+            font-size: 0.9rem; margin-right: 15px; flex-shrink: 0; font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- POST 6: Roxo Sólido --- */
+        .p6 { background-color: var(--neon); color: white; overflow: hidden; }
+        .p6 h2 { font-size: 2.5rem; margin-bottom: 10px; z-index: 2; position: relative;}
+        .p6-img {
+            position: absolute; bottom: -20px; right: -20px; width: 80%; height: 60%;
+            background: #333; clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1; opacity: 0.8; mix-blend-mode: multiply;
+        }
+
+        /* --- POST 7: Branco --- */
+        .p7 { background-color: var(--light); color: black; }
+        .chart-area {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            height: 120px; margin: 40px 0; border-bottom: 2px solid black; padding-bottom: 0px; position: relative;
+        }
+        .avg-line { position: absolute; top: 30%; width: 100%; height: 1px; border-top: 1px dashed #999; z-index: 0; }
+        .bar { width: 12%; background: black; position: relative; z-index: 1; transition: height 0.5s;}
+        .bar:last-child { background: var(--neon); border: 1px solid black; }
+
+        /* --- POST 8: Roxo Gradiente --- */
+        .p8 { 
+            background: linear-gradient(160deg, var(--neon) 0%, var(--neon-gradient) 100%); 
+            color: white; justify-content: center; /* Texto branco no gradiente */
+        }
+        .quote-box { margin-top: 20px; font-weight: 500; font-size: 1.2rem; letter-spacing: -0.5px; line-height: 1.3; font-family: 'Manrope'; }
+        .p8-profile { display: flex; align-items: center; margin-bottom: 20px; }
+        .p8-img { width: 45px; height: 45px; background: #fff; border-radius: 50%; margin-right: 15px; }
+
+        /* --- POST 9: Preto --- */
+        .p9 { background-color: var(--dark); color: white; justify-content: center; text-align: right; }
+        .p9-shape {
+            position: absolute; bottom: 0; left: 0; width: 120px; height: 120px;
+            background: var(--neon); clip-path: polygon(0 0, 0% 100%, 100% 100%);
+        }
+        .p9-shape-top {
+            position: absolute; top: 0; right: 0; width: 60px; height: 60px;
+            border: 2px solid var(--neon); border-radius: 50%; margin: 20px;
+        }
+        .p9 h2 { font-size: 2.3rem; position: relative; z-index: 2; line-height: 1.1; }
+        
+        .arrow-circle {
+            width: 35px; height: 35px; border: 1px solid currentColor;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; cursor: pointer; transition: 0.2s;
+        }
+        .arrow-circle:hover { background: white; color: var(--neon); border-color: white; }
+
+        @media (max-width: 900px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .grid-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+        
+        <!-- POST 1 -->
+        <div class="card p1">
+            <small contenteditable="true">@CAMBO.AGENCY</small>
+            <div class="p1-content">
+                <div class="avatar-group">
+                    <div class="avatar"></div>
+                    <div class="avatar" style="margin-left: -15px; background: var(--neon);"></div>
+                </div>
+                <h2 contenteditable="true">O FUTURO<br>NÃO É ESPERADO.<br>É CONSTRUÍDO.</h2>
+                <p contenteditable="true" style="margin-top: 15px; font-weight: 600;">Engenharia de marca e execução de precisão.</p>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <span style="font-size: 0.7rem; width: 60%;">IMPACTO</span>
+                <div class="arrow-circle">→</div>
+            </div>
+        </div>
+
+        <!-- POST 2 -->
+        <div class="card p2">
+            <small contenteditable="true" style="opacity: 1; color: var(--neon);">DESIGN MEETS PERFORMANCE</small>
+            <div class="p2-img-box">
+                <div class="img-placeholder">FOTO MACRO<br>CODE / UI SETUP</div>
+            </div>
+            <p contenteditable="true" style="margin-top: 25px; font-size: 0.85rem; max-width: 90%;">
+                "Estética funcional: Onde o design encontra a performance."
+            </p>
+        </div>
+
+        <!-- POST 3 -->
+        <div class="card p3">
+            <div class="p3-shape"></div>
+            <h2 contenteditable="true">REDEFININDO<br>PADRÕES.</h2>
+            <p contenteditable="true" style="position: absolute; bottom: 70px; font-size: 0.9rem; width: 70%; text-align: center;">Não seguimos tendências. Nós as criamos.</p>
+            <div class="handle" style="position: absolute; bottom: 25px;">@CAMBO.AGENCY</div>
+        </div>
+
+        <!-- POST 4 -->
+        <div class="card p4">
+            <div class="p4-shape"></div>
+            <div class="p4-img">
+                <div class="img-placeholder" style="background: transparent; opacity: 0.3; color: white;">FOTO CEO<br>(P&B AUTO)</div>
+            </div>
+            <h2 contenteditable="true">A MENTE<br>POR TRÁS DA<br>ESTRATÉGIA</h2>
+        </div>
+
+        <!-- POST 5 -->
+        <div class="card p5">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h2 contenteditable="true">SOLUÇÕES<br>END-TO-END</h2>
+                <div class="arrow-circle" style="transform: rotate(45deg);">↓</div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <div class="list-item">
+                    <div class="list-num">01</div>
+                    <div>
+                        <strong contenteditable="true" style="font-size: 1.1rem;">Strategic Branding</strong>
+                        <div style="font-size: 0.8rem; color: #555;" contenteditable="true">Posicionamento de autoridade.</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-num">02</div>
+                    <div>
+                        <strong contenteditable="true" style="font-size: 1.1rem;">High-End UI/UX</strong>
+                        <div style="font-size: 0.8rem; color: #555;" contenteditable="true">Interfaces que convertem.</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-num">03</div>
+                    <div>
+                        <strong contenteditable="true" style="font-size: 1.1rem;">Performance Tech</strong>
+                        <div style="font-size: 0.8rem; color: #555;" contenteditable="true">Escala e automação.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="handle">@CAMBO.AGENCY</div>
+        </div>
+
+        <!-- POST 6 -->
+        <div class="card p6">
+            <h2 contenteditable="true">GROWTH<br>SEM RUÍDO.</h2>
+            <p contenteditable="true" style="position: relative; z-index: 2; margin-top: 20px; font-weight: 600;">Escalamos sua operação sem queimar capital em estratégias amadoras.</p>
+            <div class="p6-img">
+                <div class="img-placeholder" style="background: #000; opacity: 0.4; color: white;">FOTO ARQUITETURA</div>
+            </div>
+        </div>
+
+        <!-- POST 7 -->
+        <div class="card p7">
+            <small contenteditable="true" style="color: black; font-weight: bold;">RESULTADOS COMPROVADOS</small>
+            <h2 contenteditable="true" style="margin-top: 10px; font-size: 1.8rem;">72% DE AUMENTO<br>EM RETENÇÃO</h2>
+            
+            <div class="chart-area">
+                <div class="avg-line"></div>
+                <div class="bar" style="height: 30%;"></div>
+                <div class="bar" style="height: 45%;"></div>
+                <div class="bar" style="height: 40%;"></div>
+                <div class="bar" style="height: 65%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 100%;"></div>
+            </div>
+            
+            <p contenteditable="true" style="font-size: 0.8rem; font-weight: 600;">Metodologia aplicada no último trimestre.</p>
+            <div class="arrow-circle" style="align-self: flex-end;">→</div>
+        </div>
+
+        <!-- POST 8 -->
+        <div class="card p8">
+            <div class="p8-profile">
+                <div class="p8-img"></div>
+                <div>
+                    <strong style="font-size: 0.9rem;" contenteditable="true">Sarah Mitchell</strong><br>
+                    <span style="font-size: 0.75rem;" contenteditable="true">CMO Global</span>
+                </div>
+            </div>
+            <div class="quote-box" contenteditable="true">
+                "A Cambo reposicionou nossa marca no setor premium. O ROI do primeiro trimestre financiou todo o projeto anual."
+            </div>
+            <div class="handle">@CAMBO.AGENCY</div>
+        </div>
+
+        <!-- POST 9 -->
+        <div class="card p9">
+            <div class="p9-shape-top"></div>
+            <div class="p9-shape"></div>
+            <div style="margin-bottom: auto; text-align: left;">
+                <small style="opacity: 0.5;">CARREIRAS</small>
+            </div>
+            <h2 contenteditable="true">CONECTANDO<br>NOVOS<br>TALENTOS.</h2>
+            <p contenteditable="true" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Processo seletivo exclusivo para perfis Senior.</p>
+            <div class="handle" style="margin-top: 20px;">LINK NA BIO</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
