@@ -1,350 +1,574 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambo Agency - Brand Purple</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <title>Cambo | Gestão de Leads - Saúde Mental</title>
     <style>
         :root {
-            /* MUDANÇA: Roxo de Marca (Mais forte e saturado) */
-            /* Se tiver o código exato da logo, cole aqui no lugar de #6600ff */
-            --neon: #6600ff; 
-            --neon-gradient: #8f00ff;
-            
-            --dark: #080808;
-            --light: #f8f5ff; /* Fundo branco com leve toque roxo */
-            --gray: #888;
+            --bg: #000000;
+            --card: #1c1c1e;
+            --accent: #30d158; /* Verde Saúde/WhatsApp */
+            --pink: #5e5ce6;
+            --green: #30d158;
+            --yellow: #ffcc00;
+            --red: #ff453a;
+            --text: #ffffff;
+            --text-sec: #8e8e93;
         }
 
-        * {
-            box-sizing: border-box;
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; padding: 0; }
+            .table-container { border: 1px solid #ccc !important; background: white !important; }
+            th { background: #f2f2f2 !important; color: black !important; }
+            .circle { border: 1px solid #000 !important; -webkit-print-color-adjust: exact; }
+            .cambo-logo { color: black !important; background: none !important; -webkit-text-fill-color: black !important; }
         }
 
         body {
-            background-color: #111;
-            font-family: 'Manrope', sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
             margin: 0;
-            padding: 40px;
-            display: flex;
-            justify-content: center;
         }
 
-        .grid-container {
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header { 
+            padding: 30px 0; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+
+        .cambo-logo {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, var(--accent), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .form-glass {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 15px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 1200px;
-            width: 100%;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .card {
-            aspect-ratio: 4 / 5;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding: 25px;
-            transition: transform 0.2s;
-            background-size: cover;
-            background-position: center;
+        input, select {
+            background: #2c2c2e;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 13px;
         }
 
-        .card:hover {
-            z-index: 10;
-            box-shadow: 0 10px 40px rgba(102, 0, 255, 0.4);
-            transform: scale(1.02);
-        }
+        .btn-add { background: var(--accent); color: black; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .btn-add:hover { background: var(--pink); color: white; }
+        .btn-pdf { background: white; color: black; border: none; border-radius: 8px; padding: 10px 25px; cursor: pointer; font-weight: 700; }
+        .btn-clear { background: #3a3a3c; color: #ff453a; border: 1px solid #ff453a; border-radius: 8px; padding: 10px 15px; cursor: pointer; margin-left: 10px; font-size: 12px;}
 
-        h2, h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            text-transform: uppercase;
-            font-weight: 700; 
-            margin: 0;
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
+        .table-container { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #2c2c2e; padding: 15px; text-align: left; font-size: 11px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
 
-        p {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            font-weight: 400;
-        }
-
-        small {
-            font-size: 0.75rem;
-            opacity: 0.8;
-            display: block;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .handle {
-            margin-top: auto;
-            font-size: 0.75rem;
-            opacity: 0.7;
-            font-weight: 600;
-        }
-
-        .img-placeholder {
-            background-color: #222;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 10px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        /* --- POST 1: Roxo Sólido --- */
-        /* Como o roxo é escuro, mudamos o texto para BRANCO */
-        .p1 { background-color: var(--neon); color: white; justify-content: space-between; }
-        .p1-content { margin-top: 40px; }
-        .p1 h2 { font-size: 2.2rem; margin-bottom: 15px; } 
-        .avatar-group { display: flex; gap: -10px; margin-bottom: 10px;}
-        .avatar { width: 35px; height: 35px; background: #fff; border-radius: 50%; border: 2px solid var(--neon); }
-
-        /* --- POST 2: Preto --- */
-        .p2 { background-color: var(--dark); color: white; align-items: center; text-align: center; }
-        .p2-img-box {
-            width: 85%; height: 60%; background: #222; margin-top: 20px;
-            border-radius: 4px; transform: rotate(-3deg); overflow: hidden; border: 1px solid #333;
-        }
-
-        /* --- POST 3: Branco --- */
-        .p3 { background-color: var(--light); color: black; justify-content: center; }
-        .p3-shape {
-            position: absolute; background-color: var(--neon);
-            width: 120%; height: 40%; top: 35%; left: -10%;
-            transform: rotate(-8deg); z-index: 0; border-radius: 4px;
-        }
-        /* Texto branco sobre o shape roxo para contraste */
-        .p3 h2 { position: relative; z-index: 1; font-size: 2.3rem; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        /* Pequeno ajuste para garantir que "Padrões" fique legível se sair do shape */
-        .p3 p { color: black; }
-
-        /* --- POST 4: Preto --- */
-        .p4 { background-color: var(--dark); color: white; }
-        .p4-shape {
-            position: absolute; background: var(--neon); width: 100%; height: 60%;
-            top: 20%; right: -30%; transform: skewX(-20deg); z-index: 0;
-        }
-        .p4-img {
-            position: absolute; bottom: 0; left: 0; right: 0; height: 75%;
-            background: linear-gradient(to top, var(--dark), transparent), #333; 
-            z-index: 1; filter: grayscale(100%) contrast(120%);
-        }
-        .p4 h2 { position: relative; z-index: 2; font-size: 2.4rem; margin-top: auto; text-shadow: 2px 2px 0 #000; }
-
-        /* --- POST 5: Branco --- */
-        .p5 { background-color: var(--light); color: black; }
-        .p5 h2 { font-size: 2.2rem; margin-bottom: 30px; }
-        .list-item { display: flex; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;}
-        .list-num { 
-            background: black; color: white; 
-            border-radius: 2px; width: 25px; height: 25px; 
-            display: flex; justify-content: center; align-items: center; 
-            font-size: 0.9rem; margin-right: 15px; flex-shrink: 0; font-family: 'Space Grotesk', sans-serif;
-        }
-
-        /* --- POST 6: Roxo Sólido --- */
-        .p6 { background-color: var(--neon); color: white; overflow: hidden; }
-        .p6 h2 { font-size: 2.5rem; margin-bottom: 10px; z-index: 2; position: relative;}
-        .p6-img {
-            position: absolute; bottom: -20px; right: -20px; width: 80%; height: 60%;
-            background: #333; clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
-            z-index: 1; opacity: 0.8; mix-blend-mode: multiply;
-        }
-
-        /* --- POST 7: Branco --- */
-        .p7 { background-color: var(--light); color: black; }
-        .chart-area {
-            display: flex; align-items: flex-end; justify-content: space-between;
-            height: 120px; margin: 40px 0; border-bottom: 2px solid black; padding-bottom: 0px; position: relative;
-        }
-        .avg-line { position: absolute; top: 30%; width: 100%; height: 1px; border-top: 1px dashed #999; z-index: 0; }
-        .bar { width: 12%; background: black; position: relative; z-index: 1; transition: height 0.5s;}
-        .bar:last-child { background: var(--neon); border: 1px solid black; }
-
-        /* --- POST 8: Roxo Gradiente --- */
-        .p8 { 
-            background: linear-gradient(160deg, var(--neon) 0%, var(--neon-gradient) 100%); 
-            color: white; justify-content: center; /* Texto branco no gradiente */
-        }
-        .quote-box { margin-top: 20px; font-weight: 500; font-size: 1.2rem; letter-spacing: -0.5px; line-height: 1.3; font-family: 'Manrope'; }
-        .p8-profile { display: flex; align-items: center; margin-bottom: 20px; }
-        .p8-img { width: 45px; height: 45px; background: #fff; border-radius: 50%; margin-right: 15px; }
-
-        /* --- POST 9: Preto --- */
-        .p9 { background-color: var(--dark); color: white; justify-content: center; text-align: right; }
-        .p9-shape {
-            position: absolute; bottom: 0; left: 0; width: 120px; height: 120px;
-            background: var(--neon); clip-path: polygon(0 0, 0% 100%, 100% 100%);
-        }
-        .p9-shape-top {
-            position: absolute; top: 0; right: 0; width: 60px; height: 60px;
-            border: 2px solid var(--neon); border-radius: 50%; margin: 20px;
-        }
-        .p9 h2 { font-size: 2.3rem; position: relative; z-index: 2; line-height: 1.1; }
+        /* Status Visual */
+        .status-group { display: flex; gap: 12px; }
+        .status-box { display: flex; flex-direction: column; align-items: center; font-size: 10px; gap: 5px; color: var(--text-sec); }
+        .circle { width: 14px; height: 14px; border-radius: 50%; }
         
-        .arrow-circle {
-            width: 35px; height: 35px; border: 1px solid currentColor;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer; transition: 0.2s;
-        }
-        .arrow-circle:hover { background: white; color: var(--neon); border-color: white; }
+        .bg-green { background-color: var(--green); box-shadow: 0 0 10px var(--green); }
+        .bg-yellow { background-color: var(--yellow); box-shadow: 0 0 10px var(--yellow); }
+        .bg-red { background-color: var(--red); box-shadow: 0 0 10px var(--red); }
 
-        @media (max-width: 900px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .grid-container { grid-template-columns: 1fr; } }
+        .wa-link { color: var(--green); text-decoration: none; font-weight: bold; border: 1px solid var(--green); padding: 5px 10px; border-radius: 6px; font-size: 12px; }
+        .wa-link:hover { background: rgba(48, 209, 88, 0.1); }
+        
+        .delete-btn { color: var(--pink); cursor: pointer; background: none; border: none; font-size: 11px; opacity: 0.5; }
+        .delete-btn:hover { opacity: 1; }
+
+        .count-badge { background: #3a3a3c; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 10px; color: white;}
     </style>
 </head>
 <body>
 
-    <div class="grid-container">
+<div class="container">
+    <header>
+        <div>
+            <h1 class="cambo-logo">CAMBO <span class="count-badge" id="leadCount">0</span></h1>
+            <p style="color: var(--text-sec); margin: 0; font-size: 14px;">Gestão de Leads - Psicologia & Psiquiatria</p>
+        </div>
+        <div class="no-print">
+            <button class="btn-clear" onclick="clearData()">Limpar Tudo</button>
+            <button class="btn-pdf" onclick="window.print()">Exportar PDF</button>
+        </div>
+    </header>
+
+    <div class="form-glass no-print">
+        <input type="text" id="nicho" placeholder="Nicho (ex: Psicólogo)" list="nichoOptions">
+        <datalist id="nichoOptions"></datalist>
+        <input type="text" id="nome" placeholder="Nome Profissional/Clínica">
+        <input type="text" id="whatsapp" placeholder="WhatsApp (apenas números)">
         
-        <!-- POST 1 -->
-        <div class="card p1">
-            <small contenteditable="true">@CAMBO.AGENCY</small>
-            <div class="p1-content">
-                <div class="avatar-group">
-                    <div class="avatar"></div>
-                    <div class="avatar" style="margin-left: -15px; background: var(--neon);"></div>
-                </div>
-                <h2 contenteditable="true">O FUTURO<br>NÃO É ESPERADO.<br>É CONSTRUÍDO.</h2>
-                <p contenteditable="true" style="margin-top: 15px; font-weight: 600;">Engenharia de marca e execução de precisão.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                <span style="font-size: 0.7rem; width: 60%;">IMPACTO</span>
-                <div class="arrow-circle">→</div>
-            </div>
-        </div>
+        <select id="st_wa">
+            <option value="green">WhatsApp: OK</option>
+            <option value="yellow">WhatsApp: Ruim</option>
+            <option value="red">WhatsApp: S/ Conta</option>
+        </select>
 
-        <!-- POST 2 -->
-        <div class="card p2">
-            <small contenteditable="true" style="opacity: 1; color: var(--neon);">DESIGN MEETS PERFORMANCE</small>
-            <div class="p2-img-box">
-                <div class="img-placeholder">FOTO MACRO<br>CODE / UI SETUP</div>
-            </div>
-            <p contenteditable="true" style="margin-top: 25px; font-size: 0.85rem; max-width: 90%;">
-                "Estética funcional: Onde o design encontra a performance."
-            </p>
-        </div>
+        <select id="st_ig">
+            <option value="green">Instagram: OK</option>
+            <option value="yellow" selected>Instagram: Verificar</option>
+            <option value="red">Instagram: S/ Conta</option>
+        </select>
 
-        <!-- POST 3 -->
-        <div class="card p3">
-            <div class="p3-shape"></div>
-            <h2 contenteditable="true">REDEFININDO<br>PADRÕES.</h2>
-            <p contenteditable="true" style="position: absolute; bottom: 70px; font-size: 0.9rem; width: 70%; text-align: center;">Não seguimos tendências. Nós as criamos.</p>
-            <div class="handle" style="position: absolute; bottom: 25px;">@CAMBO.AGENCY</div>
-        </div>
+        <select id="st_gm">
+            <option value="green">G. Maps: OK</option>
+            <option value="yellow">G. Maps: Ruim</option>
+            <option value="red">G. Maps: S/ Conta</option>
+        </select>
 
-        <!-- POST 4 -->
-        <div class="card p4">
-            <div class="p4-shape"></div>
-            <div class="p4-img">
-                <div class="img-placeholder" style="background: transparent; opacity: 0.3; color: white;">FOTO CEO<br>(P&B AUTO)</div>
-            </div>
-            <h2 contenteditable="true">A MENTE<br>POR TRÁS DA<br>ESTRATÉGIA</h2>
-        </div>
-
-        <!-- POST 5 -->
-        <div class="card p5">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <h2 contenteditable="true">SOLUÇÕES<br>END-TO-END</h2>
-                <div class="arrow-circle" style="transform: rotate(45deg);">↓</div>
-            </div>
-            
-            <div style="margin-top: 30px;">
-                <div class="list-item">
-                    <div class="list-num">01</div>
-                    <div>
-                        <strong contenteditable="true" style="font-size: 1.1rem;">Strategic Branding</strong>
-                        <div style="font-size: 0.8rem; color: #555;" contenteditable="true">Posicionamento de autoridade.</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-num">02</div>
-                    <div>
-                        <strong contenteditable="true" style="font-size: 1.1rem;">High-End UI/UX</strong>
-                        <div style="font-size: 0.8rem; color: #555;" contenteditable="true">Interfaces que convertem.</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-num">03</div>
-                    <div>
-                        <strong contenteditable="true" style="font-size: 1.1rem;">Performance Tech</strong>
-                        <div style="font-size: 0.8rem; color: #555;" contenteditable="true">Escala e automação.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="handle">@CAMBO.AGENCY</div>
-        </div>
-
-        <!-- POST 6 -->
-        <div class="card p6">
-            <h2 contenteditable="true">GROWTH<br>SEM RUÍDO.</h2>
-            <p contenteditable="true" style="position: relative; z-index: 2; margin-top: 20px; font-weight: 600;">Escalamos sua operação sem queimar capital em estratégias amadoras.</p>
-            <div class="p6-img">
-                <div class="img-placeholder" style="background: #000; opacity: 0.4; color: white;">FOTO ARQUITETURA</div>
-            </div>
-        </div>
-
-        <!-- POST 7 -->
-        <div class="card p7">
-            <small contenteditable="true" style="color: black; font-weight: bold;">RESULTADOS COMPROVADOS</small>
-            <h2 contenteditable="true" style="margin-top: 10px; font-size: 1.8rem;">72% DE AUMENTO<br>EM RETENÇÃO</h2>
-            
-            <div class="chart-area">
-                <div class="avg-line"></div>
-                <div class="bar" style="height: 30%;"></div>
-                <div class="bar" style="height: 45%;"></div>
-                <div class="bar" style="height: 40%;"></div>
-                <div class="bar" style="height: 65%;"></div>
-                <div class="bar" style="height: 80%;"></div>
-                <div class="bar" style="height: 100%;"></div>
-            </div>
-            
-            <p contenteditable="true" style="font-size: 0.8rem; font-weight: 600;">Metodologia aplicada no último trimestre.</p>
-            <div class="arrow-circle" style="align-self: flex-end;">→</div>
-        </div>
-
-        <!-- POST 8 -->
-        <div class="card p8">
-            <div class="p8-profile">
-                <div class="p8-img"></div>
-                <div>
-                    <strong style="font-size: 0.9rem;" contenteditable="true">Sarah Mitchell</strong><br>
-                    <span style="font-size: 0.75rem;" contenteditable="true">CMO Global</span>
-                </div>
-            </div>
-            <div class="quote-box" contenteditable="true">
-                "A Cambo reposicionou nossa marca no setor premium. O ROI do primeiro trimestre financiou todo o projeto anual."
-            </div>
-            <div class="handle">@CAMBO.AGENCY</div>
-        </div>
-
-        <!-- POST 9 -->
-        <div class="card p9">
-            <div class="p9-shape-top"></div>
-            <div class="p9-shape"></div>
-            <div style="margin-bottom: auto; text-align: left;">
-                <small style="opacity: 0.5;">CARREIRAS</small>
-            </div>
-            <h2 contenteditable="true">CONECTANDO<br>NOVOS<br>TALENTOS.</h2>
-            <p contenteditable="true" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Processo seletivo exclusivo para perfis Senior.</p>
-            <div class="handle" style="margin-top: 20px;">LINK NA BIO</div>
-        </div>
-
+        <input type="text" id="dor" placeholder="Nota/Observação">
+        <button class="btn-add" onclick="addLead()">ADICIONAR</button>
     </div>
 
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Profissional / Categoria</th>
+                    <th>Contacto</th>
+                    <th>Presença Digital (WA | IG | GM)</th>
+                    <th>Avaliação Google (Local)</th>
+                    <th class="no-print">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="leadBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // MENSAGEM AUTOMÁTICA ATUALIZADA
+    const waMessage = "Boa tarde! Tudo bem?\n\nFalo com a equipe da clínica?";
+    const waEncoded = encodeURIComponent(waMessage);
+
+    // DADOS IMPORTADOS DO DATASET DE PSICOLOGIA/PSIQUIATRIA
+    const importedData = [
+        { nome: "Psiquiatra Dr. Kayo Gheno - Consultório Nova Psiquiatria", nicho: "Psiquiatra", whatsapp: "5548998418200", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (57 reviews) - Florianópolis" },
+        { nome: "Rafael Floriani Goulart - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548988396060", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (84 reviews) - Florianópolis" },
+        { nome: "Dra. Julia Trindade - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (41 reviews) - Florianópolis" },
+        { nome: "Dr Pedro Juliani - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991539100", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (137 reviews) - Florianópolis" },
+        { nome: "Dra. Renata Lima Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548999202204", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (21 reviews) - Florianópolis" },
+        { nome: "Psiquiatra Dra. Celia Mendes", nicho: "Psiquiatra", whatsapp: "5548996294505", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (129 reviews) - Florianópolis" },
+        { nome: "Clínica May - Psiquiatria e Neurologia", nicho: "Psiquiatra", whatsapp: "554833717907", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (25 reviews) - Florianópolis" },
+        { nome: "Dr. Luciano Langie Martins", nicho: "Psiquiatra", whatsapp: "5548996647409", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (90 reviews) - Florianópolis" },
+        { nome: "Dr Victor Voss, Psiquiatra", nicho: "Psiquiatra", whatsapp: "554832113119", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (257 reviews) - Florianópolis" },
+        { nome: "Dr. Augusto Casa - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548992071388", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (30 reviews) - Florianópolis" },
+        { nome: "Dr. Rodolfo Petter, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548996186508", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (178 reviews) - Florianópolis" },
+        { nome: "Dr. Rafael Porto Costa, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548988427444", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (125 reviews) - Florianópolis" },
+        { nome: "Psiquiatra Drª Daniele C. Pilatti", nicho: "Psiquiatra", whatsapp: "5548992171823", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (48 reviews) - Florianópolis" },
+        { nome: "Dr Régis Chachamovich | Psiquiatra", nicho: "Psiquiatra", whatsapp: "554831970297", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (80 reviews) - Florianópolis" },
+        { nome: "CANPP | Clínica Neurologia Psicologia Psiquiatria", nicho: "Psiquiatra", whatsapp: "5548998298404", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.7⭐ (112 reviews) - Florianópolis" },
+        { nome: "Dra. Patrícia Maba Psiquiatria", nicho: "Médico", whatsapp: "5548996510605", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (21 reviews) - Florianópolis" },
+        { nome: "Clínica Personale", nicho: "Psiquiatra", whatsapp: "5548996460708", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (14 reviews) - Florianópolis" },
+        { nome: "Dr Alvaro Nascimento Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991108510", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.0⭐ (85 reviews) - Florianópolis" },
+        { nome: "Dra. Hestefani Lira Sartor", nicho: "Consultório médico", whatsapp: "5548996679853", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (68 reviews) - Florianópolis" },
+        { nome: "Tatsch-Stoppe psiquiatria especializada", nicho: "Psiquiatra", whatsapp: "5548991215152", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (14 reviews) - Florianópolis" },
+        { nome: "UP Psicologia", nicho: "Psicólogo", whatsapp: "5548991827021", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (154 reviews) - São José" },
+        { nome: "Psicóloga Elizandra Martins", nicho: "Psicólogo", whatsapp: "5548991302806", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (38 reviews) - São José" },
+        { nome: "Daiane Pereira | Psicóloga", nicho: "Psicólogo", whatsapp: "5548998004239", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (58 reviews) - São José" },
+        { nome: "Psicóloga Melissa Norcio", nicho: "Psicólogo", whatsapp: "5548988012560", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (43 reviews) - Florianópolis" },
+        { nome: "Clínica Mente & Bem Estar", nicho: "Psicólogo", whatsapp: "5548988516699", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (114 reviews) - São José" },
+        { nome: "Psicóloga Graziela Faccioni", nicho: "Psicólogo", whatsapp: "5548984051247", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (18 reviews) - Florianópolis" },
+        { nome: "Psicóloga Nicoli Lopes", nicho: "Psicólogo", whatsapp: "5548996680064", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (89 reviews) - São José" },
+        { nome: "Jackeline Santos | Encena Psicologia", nicho: "Psicólogo", whatsapp: "5548999507984", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (60 reviews) - São José" },
+        { nome: "Psicóloga Juliana Buratto", nicho: "Psicólogo", whatsapp: "5548984034772", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (48 reviews) - São José" },
+        { nome: "Psicóloga Roberta da Rosa", nicho: "Psicólogo", whatsapp: "5548999010718", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (47 reviews) - Florianópolis" },
+        { nome: "Psicóloga Flávia Medeiros Fernandes", nicho: "Psicólogo", whatsapp: "5548996626882", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Consultório Relações - Psicologia", nicho: "Psicólogo", whatsapp: "554830255299", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (24 reviews) - Florianópolis" },
+        { nome: "Psicóloga Gabrielli Marques", nicho: "Psicólogo", whatsapp: "5548999080436", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (39 reviews) - Florianópolis" },
+        { nome: "Clínica de Psicologia São José", nicho: "Psicólogo", whatsapp: "5548998045270", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.6⭐ (47 reviews) - São José" },
+        { nome: "Josias Carvalho - Psicólogo", nicho: "Psicólogo", whatsapp: "5548998045627", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (47 reviews) - Florianópolis" },
+        { nome: "Fernanda Zuqui Psicóloga", nicho: "Psicólogo", whatsapp: "5548984378283", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (32 reviews) - São José" },
+        { nome: "Maria de Lourdes Costa Antunes, Psicóloga", nicho: "Psicólogo", whatsapp: "5548991639552", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (15 reviews) - Florianópolis" },
+        { nome: "Psicóloga Rodjane Padilha", nicho: "Psicólogo", whatsapp: "5548998208089", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (69 reviews) - Florianópolis" },
+        { nome: "Psicólogo João Garcia", nicho: "Psicólogo", whatsapp: "5548991876984", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (32 reviews) - Florianópolis" },
+        { nome: "Dra. Mariana Beibe", nicho: "Psiquiatra", whatsapp: "5548999198288", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (96 reviews) - Florianópolis" },
+        { nome: "Psicóloga Dra. Elaine Bedin", nicho: "Psicólogo", whatsapp: "5548988434347", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (231 reviews) - Florianópolis" },
+        { nome: "Psicóloga Prisciani Peruzzolo", nicho: "Psicólogo", whatsapp: "5548991015700", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (57 reviews) - Florianópolis" },
+        { nome: "Psicóloga Joice Feliciano", nicho: "Psicólogo", whatsapp: "5548998595622", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (86 reviews) - Florianópolis" },
+        { nome: "Psicólogo Floripa®", nicho: "Psicólogo", whatsapp: "554830360955", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (32 reviews) - Florianópolis" },
+        { nome: "Psicóloga Karen Medeiros", nicho: "Psicólogo", whatsapp: "5548999633505", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (39 reviews) - Florianópolis" },
+        { nome: "Psicóloga Giselle Maestri", nicho: "Psicólogo", whatsapp: "5548991212241", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (14 reviews) - Florianópolis" },
+        { nome: "Psicóloga Júlia Fão", nicho: "Psicólogo", whatsapp: "5548991021615", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - São José" },
+        { nome: "Psicóloga Maria Antônia", nicho: "Psicólogo", whatsapp: "5548988224095", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (25 reviews) - Florianópolis" },
+        { nome: "Psicólogo Alejandro R Allochi", nicho: "Psicólogo", whatsapp: "5548984067686", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (58 reviews) - Florianópolis" },
+        { nome: "Psicóloga Sandra Resende", nicho: "Psicólogo", whatsapp: "5548991516401", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (22 reviews) - Florianópolis" },
+        { nome: "Tarsila Ceconi - Psicóloga", nicho: "Psicólogo", whatsapp: "5548999120362", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (20 reviews) - Florianópolis" },
+        { nome: "Consultório de Psicologia Fernanda Valadão", nicho: "Psicólogo", whatsapp: "5548991228080", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (33 reviews) - Florianópolis" },
+        { nome: "Clínica de Psicologia Vilson Araújo", nicho: "Psicólogo", whatsapp: "5548984031674", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (361 reviews) - São José" },
+        { nome: "Edina Vasco psicologia", nicho: "Psicólogo", whatsapp: "5548988287930", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.7⭐ (27 reviews) - Florianópolis" },
+        { nome: "Psicóloga Bibiana - Terapiando TCC", nicho: "Psicólogo", whatsapp: "5548988249067", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (10 reviews) - Florianópolis" },
+        { nome: "Psicólogo Matheus Vieira", nicho: "Psicólogo", whatsapp: "5548999741498", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (25 reviews) - Florianópolis" },
+        { nome: "Cho Espaço Clínico", nicho: "Psicólogo", whatsapp: "5548992231188", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (45 reviews) - Florianópolis" },
+        { nome: "Psicóloga Maria Augusta", nicho: "Psicólogo", whatsapp: "5548991822577", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - Florianópolis" },
+        { nome: "Psicóloga Isabela Espezin Helsdingen", nicho: "Psicólogo", whatsapp: "5547988885775", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (18 reviews) - Florianópolis" },
+        { nome: "Psicólogo Pedro Rocha", nicho: "Psicólogo", whatsapp: "5548998355372", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (44 reviews) - Florianópolis" },
+        { nome: "Graziele Zwielewski", nicho: "Psicólogo", whatsapp: "5548984612327", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (40 reviews) - Florianópolis" },
+        { nome: "Elias Rivas Aguayo | Psicólogo", nicho: "Psicólogo", whatsapp: "5548991358919", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (17 reviews) - Florianópolis" },
+        { nome: "Heloisa Brandão, Psicólogo", nicho: "Psicólogo", whatsapp: "5548999315930", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (39 reviews) - São José" },
+        { nome: "Victor Pontel - Psicólogo", nicho: "Psicólogo", whatsapp: "5548999818530", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (59 reviews) - São José" },
+        { nome: "Psicólogo André Luiz", nicho: "Psicólogo", whatsapp: "5548992104290", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (51 reviews) - São José" },
+        { nome: "Psicólogo Jeferson Pires", nicho: "Psicólogo", whatsapp: "5548991770656", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (29 reviews) - Palhoça" },
+        { nome: "NeuroVida Psicologia e Neurociências", nicho: "Psicólogo", whatsapp: "5548998062544", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (57 reviews) - Florianópolis" },
+        { nome: "Isadora Valente Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548999516465", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (28 reviews) - São José" },
+        { nome: "Dr. Kayo A. Gheno & Dra. Renata de Lima", nicho: "Psiquiatra", whatsapp: "5548998418200", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dra. Renata Mezzari - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991718354", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Marcos de Noronha", nicho: "Psiquiatra", whatsapp: "5548999261800", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "2.4⭐ (53 reviews) - Florianópolis" },
+        { nome: "Dra Cinthia Bernardo - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Liva Florianópolis", nicho: "Psiquiatra", whatsapp: "5548998110797", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (13 reviews) - Florianópolis" },
+        { nome: "dr. Rayli Sales, médico psiquiatra", nicho: "Médico", whatsapp: "5548991276124", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (22 reviews) - Florianópolis" },
+        { nome: "Manssur Cassias - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991450371", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (18 reviews) - Florianópolis" },
+        { nome: "Dra. Márcia Rosa Mezzomo", nicho: "Psiquiatra", whatsapp: "5548999630481", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.5⭐ (2 reviews) - Florianópolis" },
+        { nome: "Dr Aloísio Hofer Begrow - psiquiatra", nicho: "Psiquiatra", whatsapp: "5548996392203", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (20 reviews) - Florianópolis" },
+        { nome: "Clínica Ancre", nicho: "Clínica especializada", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (112 reviews) - Florianópolis" },
+        { nome: "Dra. Luiza B. S. Bertolino, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548999174472", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (8 reviews) - Florianópolis" },
+        { nome: "Dr. Fernando Balvedi Damas", nicho: "Psiquiatra", whatsapp: "5548996902255", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.7⭐ (14 reviews) - Florianópolis" },
+        { nome: "Dra. Kariny Cordini, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548988046284", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.5⭐ (6 reviews) - Florianópolis" },
+        { nome: "Dr. Luiz Guilherme Teixeira Silva Filho", nicho: "Psiquiatra", whatsapp: "5548992071388", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (8 reviews) - Florianópolis" },
+        { nome: "Psicólogo Fernando Fagundes", nicho: "Psicólogo", whatsapp: "5555996355439", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (9 reviews) - Florianópolis" },
+        { nome: "Espaço Viver Psicologia", nicho: "Psicólogo", whatsapp: "5548996429889", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (19 reviews) - Florianópolis" },
+        { nome: "Psicóloga Elisa Sant'anna Martins", nicho: "Psicólogo", whatsapp: "5548996307086", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (11 reviews) - Florianópolis" },
+        { nome: "Psicólogo Lucas Schaid", nicho: "Psicólogo", whatsapp: "5548996666108", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (58 reviews) - Florianópolis" },
+        { nome: "Psicólogo William Pietro", nicho: "Psicólogo", whatsapp: "5548984731209", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (25 reviews) - São José" },
+        { nome: "Psicóloga Aline Schueroff", nicho: "Psicólogo", whatsapp: "5548984453307", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (37 reviews) - Florianópolis" },
+        { nome: "Psicóloga Larissa Lamicoski", nicho: "Psicólogo", whatsapp: "5548996106911", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (28 reviews) - Florianópolis" },
+        { nome: "Psicóloga Patricia Dalagasperina", nicho: "Psicólogo", whatsapp: "5548992013116", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (33 reviews) - Florianópolis" },
+        { nome: "Psicólogo Ricardo Amaral", nicho: "Psicólogo", whatsapp: "5548996528685", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (55 reviews) - Palhoça" },
+        { nome: "Psic. Ana Cláudia de Souza", nicho: "Psicólogo", whatsapp: "554830255299", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Valentina Baldino - Psicóloga", nicho: "Psicólogo", whatsapp: "5548988720244", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Psicólogo Carlos Alexandre", nicho: "Psicólogo", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (14 reviews) - Florianópolis" },
+        { nome: "Adriana Bolis Psicóloga Junguiana", nicho: "Psicólogo", whatsapp: "5548991675687", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (13 reviews) - Florianópolis" },
+        { nome: "Psicólogo Fabiano de Araújo", nicho: "Psicólogo", whatsapp: "5548991770596", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (26 reviews) - Palhoça" },
+        { nome: "Ser Psicologia Clínica", nicho: "Psicólogo", whatsapp: "5548996630163", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Joana Di Migueli - Psicóloga", nicho: "Psicólogo", whatsapp: "5548999731534", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (9 reviews) - Florianópolis" },
+        { nome: "Mariana Nora Psicologia", nicho: "Clínica de saúde mental", whatsapp: "5548991273848", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Psicóloga Luana Ferraz Zanatta", nicho: "Psicólogo infantil", whatsapp: "5548999522191", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (5 reviews) - Florianópolis" },
+        { nome: "Murilo Michels Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548988677454", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - Florianópolis" },
+        { nome: "Andrea de Souza Noto Psiquiatra", nicho: "Psiquiatra", whatsapp: "554831121171", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Psiquiatra Dr. Guido Boabaid", nicho: "Psiquiatra", whatsapp: "5548998510053", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (17 reviews) - Florianópolis" },
+        { nome: "Setting Espaço Clínico", nicho: "Psiquiatra", whatsapp: "5548991718354", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.7⭐ (15 reviews) - Florianópolis" },
+        { nome: "Anima Clínica Médica", nicho: "Psiquiatra", whatsapp: "5548999299571", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Dr. João Felipe Wanrowsky Fissmer", nicho: "Psiquiatra", whatsapp: "5548988352564", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Dr Ademilson Rogerio Ferreira", nicho: "Psiquiatra", whatsapp: "5548988503053", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (33 reviews) - Florianópolis" },
+        { nome: "Clínica Fogaça Balneário Florianópolis", nicho: "Psiquiatra", whatsapp: "554832410006", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.7⭐ (5406 reviews) - Florianópolis" },
+        { nome: "Geder Grohs | psiquiatria", nicho: "Psiquiatra", whatsapp: "5548991859977", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (7 reviews) - Florianópolis" },
+        { nome: "Integrittà Saúde e Comportamento", nicho: "Psiquiatra", whatsapp: "5548999012949", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (34 reviews) - Florianópolis" },
+        { nome: "Dra. Débora Carolina Campos Neves Ribeiro", nicho: "Psiquiatra", whatsapp: "5548999513806", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (9 reviews) - Florianópolis" },
+        { nome: "Dra Evelyn Cremonese", nicho: "Psiquiatra", whatsapp: "5548991122288", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dra. Bruna Botter, Psiquiatra", nicho: "Psiquiatra", whatsapp: "554832110885", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dra. Emanuelly Martins", nicho: "Psiquiatra", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Clínica Psiquiátrica Caminho do Sol", nicho: "Hospital psiquiátrico", whatsapp: "5548984199316", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.5⭐ (35 reviews) - Florianópolis" },
+        { nome: "Dra. Greice Oliveira - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548988738253", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Psicóloga Isadora Santana Dias", nicho: "Psicólogo", whatsapp: "5547991666323", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicóloga Ariana Schneider", nicho: "Psicólogo", whatsapp: "5548998291583", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (21 reviews) - São José" },
+        { nome: "William Lima Psicólogo", nicho: "Psicólogo", whatsapp: "5549991311317", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (29 reviews) - Florianópolis" },
+        { nome: "Psicólogo Erik Junkes", nicho: "Psicólogo", whatsapp: "5548999680880", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (23 reviews) - Florianópolis" },
+        { nome: "Psicólogo Ramon Roberto Martins", nicho: "Psicólogo", whatsapp: "5548996543293", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (12 reviews) - Florianópolis" },
+        { nome: "Psicólogo Thales Vasconcellos", nicho: "Psicólogo", whatsapp: "5548991921674", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (13 reviews) - Florianópolis" },
+        { nome: "Psicóloga Manuela Fernandes", nicho: "Psicólogo", whatsapp: "5548996721189", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Psicólogo Mateus V. Takayama", nicho: "Psicólogo", whatsapp: "5548984857035", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (6 reviews) - Florianópolis" },
+        { nome: "Psicólogo - Bruno R. Rosa", nicho: "Psicólogo", whatsapp: "5548999166962", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.0⭐ (1 reviews) - São José" },
+        { nome: "Psicólogo Leonardo Lima", nicho: "Psicólogo", whatsapp: "5548984221231", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (10 reviews) - Florianópolis" },
+        { nome: "Psicóloga Júlia Pacheco", nicho: "Psicólogo", whatsapp: "5548991385563", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Palhoça" },
+        { nome: "Sula Fagundes - Psicóloga", nicho: "Psicólogo", whatsapp: "5548998232324", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Psicólogo Adeliel Santos", nicho: "Psicólogo", whatsapp: "5548988413113", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (17 reviews) - Florianópolis" },
+        { nome: "Psicólogo Alysson Barbosa", nicho: "Psicólogo", whatsapp: "5548999067124", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - São José" },
+        { nome: "Psicólogo e Psicanalista Ug Cobra", nicho: "Psicólogo", whatsapp: "5548999117162", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (19 reviews) - Florianópolis" },
+        { nome: "Robson Gírardello - Psicólogo", nicho: "Psicólogo", whatsapp: "5547988236711", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (22 reviews) - Florianópolis" },
+        { nome: "Gigiola Gimelli Psicóloga", nicho: "Psicólogo", whatsapp: "5548996215712", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Psicóloga Renise Silva", nicho: "Psicólogo", whatsapp: "5534991956726", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Roberto Carvalho Psicólogo", nicho: "Psicólogo", whatsapp: "5548998230797", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (10 reviews) - São José" },
+        { nome: "Psicóloga Fabiana Pastorello", nicho: "Psicólogo", whatsapp: "5548991163863", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Dra Juliana Fernandes Vieira", nicho: "Psiquiatra", whatsapp: "5548996309553", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dr. Gian Carlos Comerlatto | Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991188090", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (12 reviews) - Florianópolis" },
+        { nome: "Dr. Gustavo Adolfo Matos - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548988296361", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.3⭐ (17 reviews) - Florianópolis" },
+        { nome: "Psicanalista Renata Ramos", nicho: "Psicólogo", whatsapp: "5548996007424", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.7⭐ (12 reviews) - São José" },
+        { nome: "Centro de Psiquiatria Armanda Rufino", nicho: "Clínica de saúde mental", whatsapp: "5548988068780", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dra. Gláucia Michelis", nicho: "Psiquiatra", whatsapp: "5548991696040", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psiquiatra Dra. Bianca Zingano", nicho: "Consultório médico", whatsapp: "5548999102242", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Assistência Técnica e Perícia Judicial Psiquiátrica", nicho: "Psiquiatra", whatsapp: "5548991289045", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (5 reviews) - Florianópolis" },
+        { nome: "Psiquiatra - Vagner Kuklik", nicho: "Psiquiatra", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (10 reviews) - Florianópolis" },
+        { nome: "Dra Maria Claudia J Reichmann", nicho: "Clínica de saúde mental", whatsapp: "5548996559705", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dr. Gustavo Rodio Bizinella Psiquiatria", nicho: "Médico", whatsapp: "5548996733572", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (10 reviews) - Florianópolis" },
+        { nome: "Dra. Patricia Helena Alves, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5511987366277", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dra Gabriela Liberali Psiquiatra", nicho: "Consultório médico", whatsapp: "5548992037743", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dra Mariana Bratz - Psiquiatra", nicho: "Psiquiatra infantil", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (8 reviews) - Florianópolis" },
+        { nome: "Juan Pablo Borges | Psicólogo", nicho: "Psicólogo", whatsapp: "5548991774497", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (11 reviews) - Florianópolis" },
+        { nome: "Michael Trainotti - Psicólogo", nicho: "Psicólogo", whatsapp: "5548991874609", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Psicóloga Tainá Silva", nicho: "Psicólogo", whatsapp: "5548988129696", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Cristini Barreto Moreira, Psicólogo", nicho: "Psicólogo", whatsapp: "5548999319598", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Palhoça" },
+        { nome: "Psicólogo Pedro Becker", nicho: "Psicólogo", whatsapp: "5548998485499", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (18 reviews) - Florianópolis" },
+        { nome: "Psicoterapia", nicho: "Psicólogo", whatsapp: "5548991564450", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicóloga Nuamã Santos", nicho: "Psicólogo", whatsapp: "5548998220869", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Interpsi - Neuropsicologia e Psicologia", nicho: "Neuropsicólogo", whatsapp: "5548985007166", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.3⭐ (6 reviews) - São José" },
+        { nome: "Luciano Moura | Psicólogo", nicho: "Psicólogo", whatsapp: "5548988451559", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - São José" },
+        { nome: "Psicóloga Samira Turatti", nicho: "Psicólogo", whatsapp: "5548999757621", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Raphael Valverde - Psicólogo", nicho: "Psicólogo", whatsapp: "5548996312078", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (11 reviews) - Florianópolis" },
+        { nome: "Psicólogo Guilherme Farah", nicho: "Psicólogo", whatsapp: "5548996342582", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (11 reviews) - Florianópolis" },
+        { nome: "Eduardo Porchat Psicólogo", nicho: "Psicólogo", whatsapp: "5548988441015", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (30 reviews) - Florianópolis" },
+        { nome: "Atendimento Psicológico", nicho: "Psicólogo", whatsapp: "5548991356528", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Rebecca Veneziani - Psicóloga", nicho: "Psicólogo", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Psicólogo Thales Valim", nicho: "Psicólogo", whatsapp: "5548984136071", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - Florianópolis" },
+        { nome: "Psicólogo Demian", nicho: "Psicólogo", whatsapp: "5548999582984", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dra. Angela Paludo - Psiquiatra", nicho: "Médico", whatsapp: "5548991256547", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Dra Ana Paula Filippon - Psiquiatra", nicho: "Psiquiatra", whatsapp: "554830366707", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Dra. Alessandra de Amorim Gobbi", nicho: "Psiquiatra", whatsapp: "5551995851101", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.5⭐ (8 reviews) - Florianópolis" },
+        { nome: "Dra Vanessa Witter Silveira", nicho: "Psiquiatra", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psiquiatra Nilce Munoz Mota", nicho: "Médico", whatsapp: "5548999057416", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Dra Dana Roessle Correia Doni", nicho: "Psiquiatra", whatsapp: "5541996691771", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dr. Tomás Soto Vieira, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548992043489", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Cleonice Maria Fontes Zimmermann", nicho: "Psiquiatra", whatsapp: "554833220679", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Instituto Kátia Medeiros", nicho: "Psiquiatra", whatsapp: "5548998363640", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (23 reviews) - Florianópolis" },
+        { nome: "Dra Nathália Martins P. Sanches", nicho: "Psiquiatra", whatsapp: "5548974007427", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dr. Luiz Márcio Avila, psiquiatra", nicho: "Médico", whatsapp: "5548991543400", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "PSYC | Florianópolis", nicho: "Psiquiatra", whatsapp: "5548988660002", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - Florianópolis" },
+        { nome: "Dr. Raimundo Cardoso - Psiquiatra", nicho: "Psiquiatra infantil", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Psicólogo Edson Cordeiro", nicho: "Psicólogo", whatsapp: "5548996048726", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Douglas Ribicki | Psicólogo", nicho: "Psicólogo", whatsapp: "5554991796648", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (38 reviews) - Florianópolis" },
+        { nome: "Psicólogo Leomar Júnior", nicho: "Psicólogo", whatsapp: "5548999680902", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (14 reviews) - São José" },
+        { nome: "Luana Desidério | Neuropsicologia", nicho: "Neuropsicólogo", whatsapp: "5548999462061", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Roni Salomé - Psicólogo", nicho: "Psicólogo", whatsapp: "5548991768022", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (26 reviews) - São José" },
+        { nome: "Psicólogo Emanuel Silva", nicho: "Psicólogo", whatsapp: "5548988552121", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (6 reviews) - São José" },
+        { nome: "Kin Aguiar - Psicanalista", nicho: "Psicólogo", whatsapp: "5548996129229", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (39 reviews) - Florianópolis" },
+        { nome: "Psicólogo João Arturo", nicho: "Psicólogo", whatsapp: "5553981237994", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (7 reviews) - Florianópolis" },
+        { nome: "Nivaldo Tedesco, Psicólogo", nicho: "Psicólogo", whatsapp: "5548999624184", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Psicólogo Marco Duarte", nicho: "Psicólogo", whatsapp: "5548999655908", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Florianópolis" },
+        { nome: "Psicólogo Unimed", nicho: "Psicólogo", whatsapp: "5548988636282", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Florianópolis", nicho: "Psicólogo", whatsapp: "5548996073145", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Daniel Friedrich", nicho: "Psicólogo", whatsapp: "5548999994589", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Fernando Martins de Oliveira", nicho: "Psicólogo", whatsapp: "5511996483316", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Psicólogo Lucas Azolin", nicho: "Psicólogo", whatsapp: "5548988739305", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (5 reviews) - São José" },
+        { nome: "Jose Neto Psicólogo", nicho: "Psicólogo", whatsapp: "5548991403009", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (16 reviews) - Florianópolis" },
+        { nome: "Psicólogo João Guardini", nicho: "Psicólogo", whatsapp: "5548991970685", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Psicólogo Robson Feijó", nicho: "Psicólogo", whatsapp: "5548996123422", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Giovanna Botini Zortea", nicho: "Psicólogo", whatsapp: "5544999091757", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Marcelo Bartolamei Psicólogo", nicho: "Psicólogo", whatsapp: "5549984061303", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "CAPS II Ponta do Coral", nicho: "Serviço de saúde mental", whatsapp: "554832285074", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.7⭐ (61 reviews) - Florianópolis" },
+        { nome: "Dr. Jhonas Geraldo Peixoto Flauzino", nicho: "Médico", whatsapp: "5548998120131", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (6 reviews) - Florianópolis" },
+        { nome: "JCALE - Psiquiatria e Psicologia", nicho: "Psiquiatra", whatsapp: "5548988063236", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dr. André Marquardt", nicho: "Psiquiatra", whatsapp: "5548991354791", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Clínica Louise Zilli", nicho: "Psiquiatra", whatsapp: "5548996090230", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (9 reviews) - Florianópolis" },
+        { nome: "Dra. Caroline De Menezes Krebs", nicho: "Psiquiatra", whatsapp: "5548999571111", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dr. Pedro Juliani - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991080027", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Dra Aline Inoue - Psiquiatra", nicho: "Psiquiatra", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Mireva Saúde Integrada", nicho: "Psiquiatra", whatsapp: "5548991969180", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (47 reviews) - Florianópolis" },
+        { nome: "Dr. Marcos José Barreto Zaleski", nicho: "Médico", whatsapp: "554832255334", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (15 reviews) - Florianópolis" },
+        { nome: "Gesundheit Clínica Médica", nicho: "Psiquiatra infantil", whatsapp: "5548988421174", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "LUMINARE Psiquiatria", nicho: "Psiquiatra", whatsapp: "5548974007427", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Dr. Samuel Rodrigues, Psiquiatra", nicho: "Psiquiatra", whatsapp: "5553981031277", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicóloga Clínica Karina Akemi Ide", nicho: "Psicólogo", whatsapp: "5548999889189", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (62 reviews) - Florianópolis" },
+        { nome: "Djovana Bernardo Psicóloga", nicho: "Psicólogo", whatsapp: "5547996842765", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Zulma Pures Alves Psicóloga", nicho: "Psicólogo", whatsapp: "5548999103151", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Yuri Ghelfi Psicólogo", nicho: "Psicólogo", whatsapp: "5548999467499", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Kevin Cavalheiro | Psicólogo", nicho: "Psicólogo", whatsapp: "5548988011276", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (15 reviews) - Florianópolis" },
+        { nome: "Douglas Ferraz - Psicólogo", nicho: "Psicólogo", whatsapp: "5548996180101", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (8 reviews) - São José" },
+        { nome: "Psicólogo Felipe Lima de Souza", nicho: "Psicólogo", whatsapp: "5548984520359", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Nilmar Dias Psicólogo", nicho: "Psicólogo", whatsapp: "5548992101225", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Psicólogo Renato Sell", nicho: "Psicólogo", whatsapp: "5548999919400", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - São José" },
+        { nome: "Psicólogo Matheus Ribeiro", nicho: "Psicólogo", whatsapp: "5548996382762", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Adicarlos Pereira - Psicólogo", nicho: "Psicólogo", whatsapp: "5548999151172", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Ricieri Balestrin Psicólogo", nicho: "Psicólogo", whatsapp: "5549985055908", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Matheus Silveira", nicho: "Psicólogo", whatsapp: "5548999331212", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Marcelo Leal | Psicólogo", nicho: "Psicólogo", whatsapp: "5548991917883", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Rafael Czarnobai", nicho: "Psicólogo", whatsapp: "5548996055373", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Girardi", nicho: "Psicólogo", whatsapp: "5548984907696", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Leonardo Soares", nicho: "Psicólogo", whatsapp: "5548999261232", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Dr. Eduardo Luchini Vieira", nicho: "Médico", whatsapp: "5548999261400", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Matheus Schreiner - Psicólogo", nicho: "Psicólogo", whatsapp: "5548996681126", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (34 reviews) - Florianópolis" },
+        { nome: "Consultório Dr. José Antonio Alves Vilela", nicho: "Psiquiatra", whatsapp: "5548988608804", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (8 reviews) - Florianópolis" },
+        { nome: "Dr. Francisco Baptista Neto", nicho: "Psiquiatra", whatsapp: "554832222820", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Cláudio Rubens Harger da Silva", nicho: "Psiquiatra", whatsapp: "554832252320", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - Florianópolis" },
+        { nome: "Ana Maria Maykot Prates Michels", nicho: "Psiquiatra", whatsapp: "554832233537", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psiquiatra Fabiano Valerio", nicho: "Psiquiatra", whatsapp: "5548992033033", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Florianópolis" },
+        { nome: "Eduardo Ramos Collares", nicho: "Psiquiatra", whatsapp: "554832247257", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.8⭐ (4 reviews) - Florianópolis" },
+        { nome: "Dra Marília Cesca de Gouveia", nicho: "Psiquiatra", whatsapp: "5548991225551", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Luiz Alberto Cezar Rath", nicho: "Psiquiatra", whatsapp: "554832244234", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.5⭐ (8 reviews) - Florianópolis" },
+        { nome: "CEC Centro de Especialidades Clínicas", nicho: "Psiquiatra", whatsapp: "5548998317781", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.7⭐ (195 reviews) - Florianópolis" },
+        { nome: "Psicóloga Bárbara Steingreber", nicho: "Psicólogo", whatsapp: "5548996129297", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (61 reviews) - Florianópolis" },
+        { nome: "Psicóloga Karoline Costa", nicho: "Psiquiatra", whatsapp: "5548984949838", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (19 reviews) - Florianópolis" },
+        { nome: "João Maria Psicólogo Infantojuvenil", nicho: "Psicólogo", whatsapp: "5548996575431", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - São José" },
+        { nome: "Psicólogo Adney Acácio Martins", nicho: "Psicólogo", whatsapp: "5548999623066", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Johnny Lucas | Psicólogo", nicho: "Psicólogo", whatsapp: "5548996272513", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo - Raony Alves", nicho: "Psicólogo", whatsapp: "5561986113402", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Luis Fernando Andrade psicólogo", nicho: "Psicólogo", whatsapp: "5548999142470", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo em São José | Rudinei Martins", nicho: "Psicólogo", whatsapp: "", st_wa: "red", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (11 reviews) - Florianópolis" },
+        { nome: "PAULO ROBERTO RECH Psicólogo", nicho: "Psicólogo", whatsapp: "5521988712551", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.0⭐ (2 reviews) - Florianópolis" },
+        { nome: "Ponilla Ribeiro, Psicólogo", nicho: "Psicólogo", whatsapp: "5586988545034", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Caio Tosi", nicho: "Psicólogo", whatsapp: "", st_wa: "red", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (15 reviews) - São José" },
+        { nome: "Vicente Franken - Psicólogo", nicho: "Psicólogo", whatsapp: "5548999972844", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Leandro Feijó da Silva", nicho: "Psicólogo", whatsapp: "5548984131548", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Clínico Ematuir Teles de Sousa", nicho: "Psicólogo", whatsapp: "5548999553803", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Matheus Balestrin", nicho: "Psicólogo", whatsapp: "5548988115959", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Osnei Cesar Marques Jr - Psicólogo", nicho: "Psicólogo", whatsapp: "5548984521282", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Psicólogo Felipe Martins", nicho: "Psicólogo", whatsapp: "5548991980015", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (16 reviews) - " },
+        { nome: "Jefferson Maróstica Psicólogo", nicho: "Psicólogo", whatsapp: "5543998470055", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (63 reviews) - " },
+        { nome: "Psicólogo Lucas S. Rodrigues", nicho: "Psicólogo", whatsapp: "5548996935791", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (30 reviews) - " },
+        { nome: "Psicólogo Gustavo Guerreiro", nicho: "Psicólogo", whatsapp: "5547992844136", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (46 reviews) - " },
+        { nome: "Psicólogo clínico Leonardo Henrique Leite", nicho: "Psicólogo", whatsapp: "5548988655491", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - " },
+        { nome: "Psicólogo Fernando Müller", nicho: "Psicólogo", whatsapp: "5548999003511", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (4 reviews) - " },
+        { nome: "Psicólogo Júlio Menna Barreto", nicho: "Psicólogo", whatsapp: "5548988112702", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - " },
+        { nome: "Psicólogo Daniel Társis", nicho: "Psicólogo", whatsapp: "5548999586324", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - " },
+        { nome: "Psicologia para Todxs", nicho: "Psicólogo", whatsapp: "5548999650305", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - São José" },
+        { nome: "Psicólogo Juliano Scott", nicho: "Psicólogo", whatsapp: "5548991506865", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Kevin Cavalheiro | Psicólogo Clínico", nicho: "Psicólogo", whatsapp: "5548984742980", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - " },
+        { nome: "Bazzo, Walter A", nicho: "Psiquiatra", whatsapp: "554832235489", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Assim SC", nicho: "Policlínica", whatsapp: "5548991562354", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (5 reviews) - Florianópolis" },
+        { nome: "Neurovital Terapias Integradas", nicho: "Clínica de Fisioterapia", whatsapp: "5548999476430", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (26 reviews) - Florianópolis" },
+        { nome: "Consultório Dr. Rafael Jatczak", nicho: "Psiquiatra", whatsapp: "5554984483301", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (21 reviews) - São José" },
+        { nome: "Espaço Reabilitar - Capoeiras", nicho: "Psicólogo infantil", whatsapp: "5548988415252", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (14 reviews) - Florianópolis" },
+        { nome: "Clinifemina", nicho: "Psiquiatra", whatsapp: "554832233031", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.5⭐ (633 reviews) - Florianópolis" },
+        { nome: "Vitaclass Atendimento Saúde", nicho: "Psiquiatra", whatsapp: "554840092920", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Florianópolis" },
+        { nome: "Clínica Valsecchi", nicho: "Psiquiatra", whatsapp: "5548998350500", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.4⭐ (55 reviews) - Florianópolis" },
+        { nome: "AmorSaúde São José", nicho: "Policlínica", whatsapp: "554830582667", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.3⭐ (663 reviews) - São José" },
+        { nome: "CAIC - Pediatria e Saúde da Mulher", nicho: "Pediatra", whatsapp: "5548991250266", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.9⭐ (226 reviews) - Florianópolis" },
+        { nome: "GAD Clínica Integrada", nicho: "Psiquiatra", whatsapp: "554832335523", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.8⭐ (77 reviews) - Florianópolis" },
+        { nome: "Dr Antonio Antunes - ‘Doutor Psycho’", nicho: "Psiquiatra", whatsapp: "5548991666669", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - " },
+        { nome: "Dra. Bruna Müller Amorim", nicho: "Psiquiatra", whatsapp: "5548999080154", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - " },
+        { nome: "Dra. Maria Alice Pedron Carneiro", nicho: "Psiquiatra", whatsapp: "5551983368187", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - " },
+        { nome: "Psicóloga Karine Oliveira", nicho: "Psicólogo", whatsapp: "5548998535158", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (13 reviews) - Biguaçu" },
+        { nome: "Cuidar + Clínica de psicologia", nicho: "Psicólogo", whatsapp: "5548920009700", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (33 reviews) - Biguaçu" },
+        { nome: "Psicóloga Thays Correia", nicho: "Psicólogo", whatsapp: "5548991222324", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (10 reviews) - Biguaçu" },
+        { nome: "Psicóloga Fernanda Pimentel Fabricio", nicho: "Psicólogo", whatsapp: "5548974006725", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (43 reviews) - Biguaçu" },
+        { nome: "Psicóloga Leila Dalfovo", nicho: "Psicólogo", whatsapp: "5548988012355", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (2 reviews) - Biguaçu" },
+        { nome: "Psicólogo Lucas Azambuja", nicho: "Psicólogo", whatsapp: "5548991373866", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (20 reviews) - Biguaçu" },
+        { nome: "JANETE LEONY VITORINO - PSICÓLOGA", nicho: "Neuropsicólogo", whatsapp: "5548984511089", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (15 reviews) - Biguaçu" },
+        { nome: "Ceravolo Psicologo", nicho: "Psicólogo", whatsapp: "5548996423546", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (8 reviews) - Biguaçu" },
+        { nome: "Dr. Guilherme Gransotto Filho", nicho: "Clínica de saúde mental", whatsapp: "5548996567130", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (3 reviews) - Biguaçu" },
+        { nome: "Neuropsicopedagoga Josiane Domingos", nicho: "Clínica de psicopedagogia", whatsapp: "5548984173156", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (89 reviews) - Biguaçu" },
+        { nome: "CAPS I Biguaçu", nicho: "Médico", whatsapp: "554830398468", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.4⭐ (20 reviews) - Biguaçu" },
+        { nome: "Psicanalista Sidimar Eugenio Braga", nicho: "Psicólogo", whatsapp: "5548984699033", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.3⭐ (4 reviews) - Biguaçu" },
+        { nome: "Clínica Médica Biguaçu", nicho: "Centro médico", whatsapp: "554832433232", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.3⭐ (371 reviews) - Biguaçu" },
+        { nome: "Gisele Psicologia e Acupuntura", nicho: "Clínica de saúde mental", whatsapp: "5548999823224", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "5.0⭐ (1 reviews) - Biguaçu" },
+        { nome: "Clínica Psicológica Biguaçu", nicho: "Psicólogo", whatsapp: "554830671779", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Biguaçu" },
+        { nome: "Medprev Biguaçu", nicho: "Assistência médica", whatsapp: "554830472001", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.3⭐ (23 reviews) - Biguaçu" },
+        { nome: "Psicóloga Josielly Pinheiro Westphal", nicho: "Psicólogo", whatsapp: "554832433232", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "?⭐ (0 reviews) - Biguaçu" },
+        { nome: "Instituto de Psiquiatria de Santa Catarina", nicho: "Hospital", whatsapp: "554836643400", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "3.2⭐ (85 reviews) - São José" },
+        { nome: "Dra. Ângela Campo", nicho: "Psiquiatra", whatsapp: "5548984520359", st_wa: "green", st_ig: "yellow", st_gm: "green", dor: "4.6⭐ (10 reviews) - São José" }
+    ];
+
+    // Alterado o nome da chave para não conflitar com a lista de ar condicionado
+    let leads = JSON.parse(localStorage.getItem('cambo_leads_psi')) || [];
+    let nichos = JSON.parse(localStorage.getItem('cambo_nichos_psi')) || [];
+
+    // Carregar dados importados se a lista estiver vazia
+    if (leads.length === 0) {
+        leads = importedData;
+        
+        // Extrair nichos únicos
+        const uniqueNichos = [...new Set(importedData.map(item => item.nicho))];
+        nichos = uniqueNichos;
+
+        saveData();
+    }
+
+    function updateView() {
+        const tbody = document.getElementById('leadBody');
+        const datalist = document.getElementById('nichoOptions');
+        const countSpan = document.getElementById('leadCount');
+        
+        tbody.innerHTML = '';
+        datalist.innerHTML = '';
+        countSpan.innerText = leads.length;
+
+        nichos.forEach(n => { datalist.innerHTML += `<option value="${n}">`; });
+
+        leads.forEach((lead, index) => {
+            const cleanPhone = lead.whatsapp.replace(/\D/g, '');
+            // Lógica para desativar botão se não tiver telefone
+            const whatsappButton = cleanPhone 
+                ? `<a href="https://wa.me/${cleanPhone}?text=${waEncoded}" target="_blank" class="wa-link">ABRIR WHATSAPP ↗</a>` 
+                : `<span style="opacity:0.3; font-size:11px;">SEM WHATSAPP</span>`;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>
+                        <b style="font-size:16px">${lead.nome}</b><br>
+                        <span style="color:var(--accent); font-size:11px; font-weight:bold;"># ${lead.nicho.toUpperCase()}</span>
+                    </td>
+                    <td>${whatsappButton}</td>
+                    <td>
+                        <div class="status-group">
+                            <div class="status-box"><span class="circle bg-${lead.st_wa}"></span>WA</div>
+                            <div class="status-box"><span class="circle bg-${lead.st_ig}"></span>IG</div>
+                            <div class="status-box"><span class="circle bg-${lead.st_gm}"></span>GM</div>
+                        </div>
+                    </td>
+                    <td style="color:var(--text-sec); font-style: italic; font-size: 13px;">"${lead.dor}"</td>
+                    <td class="no-print"><button class="delete-btn" onclick="deleteLead(${index})">Eliminar</button></td>
+                </tr>
+            `;
+        });
+    }
+
+    function addLead() {
+        const lead = {
+            nicho: document.getElementById('nicho').value,
+            nome: document.getElementById('nome').value,
+            whatsapp: document.getElementById('whatsapp').value,
+            st_wa: document.getElementById('st_wa').value,
+            st_ig: document.getElementById('st_ig').value,
+            st_gm: document.getElementById('st_gm').value,
+            dor: document.getElementById('dor').value
+        };
+
+        if(!lead.nome) return alert("Por favor, preencha o nome do profissional/clínica.");
+
+        leads.unshift(lead); // Adiciona no começo
+        if(lead.nicho && !nichos.includes(lead.nicho)) nichos.push(lead.nicho);
+        
+        document.getElementById('nome').value = '';
+        document.getElementById('whatsapp').value = '';
+        document.getElementById('dor').value = '';
+        
+        saveData();
+        updateView();
+    }
+
+    function deleteLead(index) {
+        if(confirm("Remover este lead da lista?")) {
+            leads.splice(index, 1);
+            saveData();
+            updateView();
+        }
+    }
+
+    function clearData() {
+        if(confirm("Tem certeza? Isso apagará todos os dados e recarregará a lista original.")) {
+            localStorage.removeItem('cambo_leads_psi');
+            localStorage.removeItem('cambo_nichos_psi');
+            location.reload();
+        }
+    }
+
+    function saveData() {
+        localStorage.setItem('cambo_leads_psi', JSON.stringify(leads));
+        localStorage.setItem('cambo_nichos_psi', JSON.stringify(nichos));
+    }
+
+    updateView();
+</script>
 </body>
 </html>
